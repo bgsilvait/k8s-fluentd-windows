@@ -57,9 +57,9 @@ metadata:
           - name: INTERVAL
             value: 10
           - name: AWS_REGION
-            value: us-west-2
+            value: #change_to_your_region
           - name: CLUSTER_NAME
-            value: windows-cluster
+            value: #change_to_your_clustername
         resources:
           limits:
             memory: 1024Mi
