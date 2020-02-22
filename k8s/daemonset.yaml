@@ -34,14 +34,21 @@ subjects:
   name: fluentd-windows
   namespace: amazon-cloudwatch
 ---
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: DaemonSet
 metadata:
   name: fluentd-windows
   namespace: amazon-cloudwatch
   labels:
     k8s-app: fluentd-windows
-    version: v1
+spec:
+  selector:
+    matchLabels:
+      name: fluentd-windows
+  template:
+    metadata:
+      labels:
+        name: fluentd-windows
     spec:
       serviceAccount: fluentd-windows
       serviceAccountName: fluentd-windows
@@ -55,11 +62,11 @@ metadata:
         image: bgsilvait/fluentd-windows
         env:
           - name: INTERVAL
-            value: 10
+            value: "10"
           - name: AWS_REGION
-            value: #change_to_your_region
+            value: us-west-2
           - name: CLUSTER_NAME
-            value: #change_to_your_clustername
+            value: windows-cluster
         resources:
           limits:
             memory: 1024Mi
