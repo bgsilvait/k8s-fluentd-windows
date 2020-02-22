@@ -64,9 +64,9 @@ spec:
           - name: INTERVAL
             value: "10"
           - name: AWS_REGION
-            value: us-west-2
+            value: #your_region
           - name: CLUSTER_NAME
-            value: windows-cluster
+            value: #your_cluster
         resources:
           limits:
             memory: 1024Mi
@@ -76,6 +76,8 @@ spec:
         volumeMounts:
         - name: varlog
           mountPath: /var/log
+        - name: varlibdockercontainers
+          mountPath: C:\ProgramData\Docker\containers
           readOnly: true
       nodeSelector:
         beta.kubernetes.io/os: windows
@@ -84,3 +86,6 @@ spec:
       - name: varlog
         hostPath:
           path: C:\var\log
+      - name: varlibdockercontainers
+        hostPath:
+          path: C:\ProgramData\Docker\containers
