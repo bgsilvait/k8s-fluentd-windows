@@ -7,8 +7,10 @@ before start:
 2) OIDC configured[2]
 (replace AWS_REGION and CLUSTERNAME with your config)
 
-
+```
 eksctl utils associate-iam-oidc-provider --region AWS_REGION --cluster CLUSTERNAME --approve
+```
+
 3) Windows Server 2019 w/ Docker for build your containers ( you can use the builded ones)
 
 ===
