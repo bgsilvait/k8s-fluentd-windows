@@ -27,7 +27,7 @@ metadata:
   name: fluentd-windows
 roleRef:
   kind: ClusterRole
-  name: fluentd
+  name: fluentd-windows
   apiGroup: rbac.authorization.k8s.io
 subjects:
 - kind: ServiceAccount
@@ -42,13 +42,6 @@ metadata:
   labels:
     k8s-app: fluentd-windows
     version: v1
-spec:
-  template:
-    metadata:
-      annotations:
-      labels:
-        k8s-app: fluentd-windows
-        version: v1
     spec:
       serviceAccount: fluentd-windows
       serviceAccountName: fluentd-windows
@@ -76,11 +69,7 @@ spec:
         volumeMounts:
         - name: varlog
           mountPath: /var/log
-        - name: varlibdockercontainers
-          mountPath: C:\ProgramData\Docker\containers
           readOnly: true
-        - name: pods
-          mountPath: /var/log
       nodeSelector:
         beta.kubernetes.io/os: windows
       terminationGracePeriodSeconds: 30
@@ -88,6 +77,3 @@ spec:
       - name: varlog
         hostPath:
           path: C:\var\log
-      - name: varlibdockercontainers
-        hostPath:
-          path: C:\ProgramData\Docker\containers
