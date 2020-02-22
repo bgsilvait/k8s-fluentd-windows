@@ -22,4 +22,12 @@ eksctl create iamserviceaccount --cluster CLUSTERNAME \
 --attach-policy-arn arn:aws:iam::aws:policy/CloudWatchFullAccess \
 --name fluentd-windows --region AWS_REGION \
 --namespace amazon-cloudwatch --approve
+```
+
+expected result:
+```
+kubectl get sa -n amazon-cloudwatch | grep fluentd-windows
+fluentd-windows   1         
+```
+
 
