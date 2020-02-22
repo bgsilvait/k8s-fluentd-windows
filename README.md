@@ -14,5 +14,7 @@ eksctl utils associate-iam-oidc-provider --region AWS_REGION --cluster CLUSTERNA
 1) Create EKS Service account
 /k8s
 serviceaccount
+
+
 eksctl create iamserviceaccount --cluster CLUSTERNAME --attach-policy-arn arn:aws:iam::aws:policy/CloudWatchFullAccess \
 --name fluentd-windows --region AWS_REGION --namespace amazon-cloudwatch --approve
