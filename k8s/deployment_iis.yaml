@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    run: winiis
+  name: winiis
+  namespace: default
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 5
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      run: winiis
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        run: winiis
+    spec:
+      containers:
+      - image: bgsilvait/bgs_iis
+        imagePullPolicy: IfNotPresent
+        name: winiis
+      dnsPolicy: ClusterFirst
+      nodeSelector:
+        beta.kubernetes.io/os: windows
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      terminationGracePeriodSeconds: 30
+      tolerations:
+      - effect: NoSchedule
+        key: os
+        operator: Equal
+        value: Win1809
