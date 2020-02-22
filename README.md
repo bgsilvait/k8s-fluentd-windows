@@ -30,4 +30,8 @@ kubectl get sa -n amazon-cloudwatch | grep fluentd-windows
 fluentd-windows   1         
 ```
 
+Apply the Daemonset 
+
+(replace AWS_REGION and CLUSTERNAME with your config)
+
 
