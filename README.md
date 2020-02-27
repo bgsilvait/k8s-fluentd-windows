@@ -36,4 +36,8 @@ Apply the Daemonset
 
 (replace AWS_REGION and CLUSTERNAME with your config)
 
-
+**Check the nodes:**
+```console
+kubectl get nodes
+```
+![nodes](./docs/nodes.png)
