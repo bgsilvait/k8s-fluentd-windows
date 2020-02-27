@@ -21,7 +21,8 @@ eksctl utils install-vpc-controllers --cluster=eks-windows --approve --region=us
 ```
 1.3) Create Nodegroup Windows
 ```console
-eksctl create nodegroup --cluster=eks-windows --node-ami-family=WindowsServer2019FullContainer --ssh-access --ssh-public-key=your_key_name --region=us-east-1
+eksctl create nodegroup --cluster=eks-windows --node-ami-family=WindowsServer2019FullContainer \
+--ssh-access --ssh-public-key=your_key_name --region=us-east-1
 ```
 1.4) Update your kubectl config
 ```console
@@ -62,4 +63,5 @@ fluentd-windows   1
 Apply the Daemonset 
 
 (replace AWS_REGION and CLUSTERNAME with your config)
+
 
