@@ -17,7 +17,7 @@ Stream Logs from K8s Windows Pods using Fluentd
 1.1) Create EKS Cluster
 ```console
 eksctl create cluster --name=eks-windows --ssh-access \
---ssh-public-key=your_key_name --managed --region=us-east-1
+--ssh-public-key=#<your_key_name> --managed --region=us-east-1
 ```
 1.2) Install vpc-controller
 ```console
@@ -26,7 +26,7 @@ eksctl utils install-vpc-controllers --cluster=eks-windows --approve --region=us
 1.3) Create Nodegroup Windows
 ```console
 eksctl create nodegroup --cluster=eks-windows --node-ami-family=WindowsServer2019FullContainer \
---ssh-access --ssh-public-key=your_key_name --region=us-east-1
+--ssh-access --ssh-public-key=#<your_key_name> --region=us-east-1
 ```
 1.4) Update your kubectl config
 ```console
