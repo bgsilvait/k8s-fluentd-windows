@@ -112,6 +112,14 @@ curl winiis -UseBasicParsing
 ```
 
 
-[Check Stream (us-east-1)](https://console.aws.amazon.com/cloudwatch/home?region=us-east-1#logStream:group=/EKS/eks-windows/Windows;streamFilter=typeLogStreamPrefix
+[Cloudwatch (us-east-1)](https://console.aws.amazon.com/cloudwatch/home?region=us-east-1#logStream:group=/EKS/eks-windows/Windows;streamFilter=typeLogStreamPrefix
 )
-## x) Adicional Windows Server 2019 with Docker for build your containers.(You can use the examples provided)
+
+
+## Custom Containers for IIS and Fluentd
+
+OS: Windows Server 2019 with Docker
+
+* [IIS](https://github.com/bgsilvait/k8s-fluentd-windows/tree/master/iis)
+
+* [Fluentd](https://github.com/bgsilvait/k8s-fluentd-windows/tree/master/fluentd)
