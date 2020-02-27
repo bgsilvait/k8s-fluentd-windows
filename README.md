@@ -79,7 +79,7 @@ kubectl apply -f https://raw.githubusercontent.com/bgsilvait/k8s-fluentd-windows
 ```console
 kubectl get pods -A -o wide | grep winiis
 ```
-### **Windows containers are way more bigger than linux, can take some minutes to enter in ready state.**
+### **Windows containers are bigger than linux, can take some minutes to enter in ready state.**
 
 ## 3) Deploy fluentd-windows Daemonset
 
