@@ -115,6 +115,9 @@ curl winiis -UseBasicParsing
 [Cloudwatch (us-east-1)](https://console.aws.amazon.com/cloudwatch/home?region=us-east-1#logStream:group=/EKS/eks-windows/Windows;streamFilter=typeLogStreamPrefix
 )
 
+![loggroups](./docs/log_groups.png)
+
+![iisstream](./docs/stream_IIS.png)
 
 ## Custom Containers for IIS and Fluentd
 
