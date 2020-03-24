@@ -9,8 +9,7 @@ RUN Set-ExecutionPolicy Bypass -Scope Process -Force; \
 RUN choco install -y curl vim
 
 #Add X-Forward-For Header to IIS Default website log
-RUN Add-WebConfigurationProperty -pspath 'MACHINE/WEBROOT/APPHOST'  -filter "system.applicationHost/sites/siteDefaults/logFile/customFields" -name "." "-value @{logFieldName='X-Forwarded-For';sourceName='
-X-Forwarded-For';sourceType='RequestHeader'};" \
+RUN Add-WebConfigurationProperty -pspath 'MACHINE/WEBROOT/APPHOST'  -filter "system.applicationHost/sites/siteDefaults/logFile/customFields" -name "." "-value @{logFieldName='X-Forwarded-For';sourceName='X-Forwarded-For';sourceType='RequestHeader'};" \
 
 #Adjust curl & grep
 Add-Content -Path $PsHome\profile.ps1 -Value 'Remove-Item alias:curl -erroraction ignore'; \
