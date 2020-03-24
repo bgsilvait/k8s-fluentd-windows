@@ -8,10 +8,8 @@ RUN Set-ExecutionPolicy Bypass -Scope Process -Force; \
 #Install curl and vim
 RUN choco install -y curl vim
 
-#Add X-Forward-For Header to IIS Default website log
+#Add X-Forward-For Header to IIS Default website log | Adjust curl & grep
 RUN Add-WebConfigurationProperty -pspath 'MACHINE/WEBROOT/APPHOST'  -filter "system.applicationHost/sites/siteDefaults/logFile/customFields" -name "." "-value @{logFieldName='X-Forwarded-For';sourceName='X-Forwarded-For';sourceType='RequestHeader'};" \
-
-#Adjust curl & grep
 Add-Content -Path $PsHome\profile.ps1 -Value 'Remove-Item alias:curl -erroraction ignore'; \
 Add-Content -Path $PsHome\profile.ps1 -Value 'new-alias grep findstr -erroraction ignore'
 
