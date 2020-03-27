@@ -119,10 +119,16 @@ curl winiis -UseBasicParsing
 
 ![iisstream](./docs/stream_IIS.png)
 
-## Custom Containers for IIS and Fluentd
-
-OS: Windows Server 2019 with Docker
+## Custom Containers Windows Server 2019 for IIS Fluentd 
 
 * [IIS](https://github.com/bgsilvait/k8s-fluentd-windows/tree/master/iis)
 
 * [Fluentd](https://github.com/bgsilvait/k8s-fluentd-windows/tree/master/fluentd)
+
+## Custom Containers Windows Server 1919 for IIS, Fluentd and Kubernetes files
+
+* [IIS](https://github.com/bgsilvait/k8s-fluentd-windows/tree/master/ws1909/iis)
+
+* [Fluentd](https://github.com/bgsilvait/k8s-fluentd-windows/tree/master/ws1909/fluentd)
+
+* [K8S](https://github.com/bgsilvait/k8s-fluentd-windows/tree/master/ws1909/k8s)
