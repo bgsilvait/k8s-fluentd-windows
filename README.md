@@ -119,7 +119,7 @@ curl winiis -UseBasicParsing
 
 ![iisstream](./docs/stream_IIS.png)
 
-## Custom Containers Windows Server 2019 for IIS Fluentd 
+## Custom Containers Windows Server 2019 for IIS and Fluentd 
 
 * [IIS](https://github.com/bgsilvait/k8s-fluentd-windows/tree/master/iis)
 
