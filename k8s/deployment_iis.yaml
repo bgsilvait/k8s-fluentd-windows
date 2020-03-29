@@ -24,7 +24,7 @@ spec:
         run: winiis
     spec:
       containers:
-      - image: bgsilvait/bgs_iis
+      - image: bgsilvait/winiis:1809
         imagePullPolicy: IfNotPresent
         name: winiis
       dnsPolicy: ClusterFirst
