@@ -6,8 +6,8 @@ metadata:
   labels:
     k8s-app: fluentd-windows
 data:
-  AWS_REGION: YOUR_REGION_HERE
-  CLUSTER_NAME: YOUR_CLUSTER_NAME
+  AWS_REGION: us-east-1
+  CLUSTER_NAME: eks-windows
   fluent.conf: |
     <match fluent.**>
       @type null
