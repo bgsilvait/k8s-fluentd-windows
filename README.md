@@ -105,8 +105,15 @@ kubectl -it exec <your_winiis_pod_name> powershell
 ```
 
 ```powershell
+curl -I winiis
+```
+**OR**
+
+```powershell
 curl winiis -UseBasicParsing
 ```
+
+
 
 
 [Cloudwatch (us-east-1)](https://console.aws.amazon.com/cloudwatch/home?region=us-east-1#logStream:group=/EKS/eks-windows/Windows;streamFilter=typeLogStreamPrefix
