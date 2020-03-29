@@ -62,7 +62,30 @@ eksctl create iamserviceaccount --cluster eks-windows \
 kubectl get sa -n amazon-cloudwatch | grep fluentd-windows
 ```
 
-## 2) Deploy an IIS pod created with [Logmonitor](https://github.com/microsoft/windows-container-tools/tree/master/LogMonitor)
+## 2) Deploy fluentd-windows Configmap and Daemonset
+
+```console
+kubectl apply -f https://raw.githubusercontent.com/bgsilvait/k8s-fluentd-windows/master/k8s/configmap-fluentd-windowsbgs.yml
+```
+
+```console
+kubectl apply -f https://raw.githubusercontent.com/bgsilvait/k8s-fluentd-windows/master/k8s/daemonset-fluentd-windows.yaml
+```
+
+**If you are NOT using the provided examples, you should replace on configmap-fluentd-windowsbgs.yml:**
+```yaml
+data:
+  AWS_REGION: YOUR_REGION_HERE
+  CLUSTER_NAME: YOUR_CLUSTER_NAME
+  fluent.conf: |
+```
+```console
+kubectl get pods -n amazon-cloudwatch
+```
+
+### **Windows containers are bigger than linux, can take some minutes to enter in ready state.**
+
+## 3) Deploy an IIS pod created with [Logmonitor](https://github.com/microsoft/windows-container-tools/tree/master/LogMonitor)
 
 
 ```console
@@ -79,27 +102,7 @@ kubectl apply -f https://raw.githubusercontent.com/bgsilvait/k8s-fluentd-windows
 ```console
 kubectl get pods -A -o wide | grep winiis
 ```
-### **Windows containers are bigger than linux, can take some minutes to enter in ready state.**
 
-## 3) Deploy fluentd-windows Daemonset
-
-```console
-kubectl apply -f https://raw.githubusercontent.com/bgsilvait/k8s-fluentd-windows/master/k8s/daemonset.yaml
-```
-**If you are NOT using the provided examples, you should replace:**
-```yaml
-        image: YOUR_CUSTOM_IMAGE_FLUENTD
-        env:
-          - name: INTERVAL
-            value: "40"
-          - name: AWS_REGION
-            value: YOUR_REGION_HERE
-          - name: CLUSTER_NAME
-            value: YOUR_CLUSTER_NAME
-```
-```console
-kubectl get pods -n amazon-cloudwatch
-```
 
 ## 4) Access the IIS Pods to generate logs
 
