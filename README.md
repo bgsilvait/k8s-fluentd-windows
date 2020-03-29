@@ -137,4 +137,4 @@ curl winiis -UseBasicParsing
 
 * [K8S](https://github.com/bgsilvait/k8s-fluentd-windows/tree/master/ws1909/k8s)
 
-[![This image on DockerHub](https://img.shields.io/docker/pulls/bgsilvait/k8s-fluentd-windows.svg)](https://hub.docker.com/r/docker/bgsilvait/winfluentd/)
+[![This image on DockerHub](https://img.shields.io/docker/pulls/bgsilvait/k8s-fluentd-windows.svg)](https://hub.docker.com/repository/docker/bgsilvait/winfluentd)
