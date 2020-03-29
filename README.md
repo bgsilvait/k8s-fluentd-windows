@@ -90,7 +90,7 @@ kubectl get pods -n amazon-cloudwatch
 
 
 ```console
-kubectl apply -f https://https://raw.githubusercontent.com/bgsilvait/k8s-fluentd-windows/master/k8s/deployment-iisbgs.yaml
+kubectl apply -f https://raw.githubusercontent.com/bgsilvait/k8s-fluentd-windows/master/k8s/deployment-iisbgs.yaml
 ```
 
 ```console
