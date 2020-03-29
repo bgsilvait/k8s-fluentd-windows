@@ -52,6 +52,17 @@ spec:
     spec:
       serviceAccount: fluentd-windows
       serviceAccountName: fluentd-windows
+      # Because the fluentd requires to write on /etc/fluentd/ but we mount the config using a configmap 
+      # which is read-only, this initContainers needs to be used to copy from RO folder to RW folder.
+      initContainers:
+      - name: copy-fluentd-config
+        image: mcr.microsoft.com/windows/servercore:ltsc2019
+        command: ['powershell', '-command', 'cp /etc/temp/*.conf /etc/fluent/']
+        volumeMounts:
+        - name: fluentdconftemp
+          mountPath: /etc/temp/
+        - name: fluentdconf
+          mountPath: /etc/fluent
       tolerations:
       - effect: NoSchedule
         key: os
@@ -59,21 +70,29 @@ spec:
         value: Win1809
       containers:
       - name: fluentd-windows
-        image: bgsilvait/fluentd-windows
+        image: bgsilvait/winfluentd:1809
         env:
-          - name: INTERVAL
-            value: "40"
           - name: AWS_REGION
-            value: us-east-1
+            valueFrom:
+              configMapKeyRef:
+                name: fluentd-windows
+                key: AWS_REGION
           - name: CLUSTER_NAME
-            value: eks-windows
+            valueFrom:
+              configMapKeyRef:
+                name: fluentd-windows
+                key: CLUSTER_NAME
         resources:
           limits:
-            memory: 1024Mi
+            memory: 2Gi
           requests:
             cpu: 100m
-            memory: 1024Mi
+            memory: 1Gi
         volumeMounts:
+        - name: fluentdconftemp
+          mountPath: /etc/temp/
+        - name: fluentdconf
+          mountPath: /etc/fluent
         - name: varlog
           mountPath: /var/log
         - name: varlibdockercontainers
@@ -83,9 +102,14 @@ spec:
         beta.kubernetes.io/os: windows
       terminationGracePeriodSeconds: 30
       volumes:
+      - name: fluentdconftemp
+        configMap:
+          name: fluentd-windows
       - name: varlog
         hostPath:
           path: C:\var\log
       - name: varlibdockercontainers
         hostPath:
           path: C:\ProgramData\Docker\containers
+      - name: fluentdconf
+        emptyDir: {}
