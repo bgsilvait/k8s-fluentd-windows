@@ -46,7 +46,6 @@ eksctl utils associate-iam-oidc-provider  --cluster eks-windows --approve --regi
 [Check the OIDC](https://console.aws.amazon.com/iam/home#/providers)
 
 
-
 # Install fluentd-windows EKS
 
 ## 1) Create EKS [Service Account](https://docs.aws.amazon.com/eks/latest/userguide/iam-roles-for-service-accounts.html)
@@ -65,20 +64,22 @@ kubectl get sa -n amazon-cloudwatch | grep fluentd-windows
 ## 2) Deploy fluentd-windows Configmap and Daemonset
 
 ```console
-kubectl apply -f https://raw.githubusercontent.com/bgsilvait/k8s-fluentd-windows/master/k8s/configmap-fluentd-windowsbgs.yml
+kubectl apply -f https://raw.githubusercontent.com/bgsilvait/k8s-fluentd-windows/master/k8s/configmap-fluentd-windowsbgs.yaml
 ```
 
-```console
-kubectl apply -f https://raw.githubusercontent.com/bgsilvait/k8s-fluentd-windows/master/k8s/daemonset-fluentd-windows.yaml
-```
+**If you are NOT using the provided examples for AWS_REGION and Cluster Name, you should replace on configmap-fluentd-windowsbgs.yaml:**
 
-**If you are NOT using the provided examples, you should replace on configmap-fluentd-windowsbgs.yml:**
 ```yaml
 data:
   AWS_REGION: YOUR_REGION_HERE
   CLUSTER_NAME: YOUR_CLUSTER_NAME
   fluent.conf: |
 ```
+
+```console
+kubectl apply -f https://raw.githubusercontent.com/bgsilvait/k8s-fluentd-windows/master/k8s/daemonset-fluentd-windows.yaml
+```
+
 ```console
 kubectl get pods -n amazon-cloudwatch
 ```
@@ -89,14 +90,7 @@ kubectl get pods -n amazon-cloudwatch
 
 
 ```console
-kubectl apply -f https://raw.githubusercontent.com/bgsilvait/k8s-fluentd-windows/master/k8s/deployment_iis.yaml
-```
-
-**If you are NOT using the provided examples, you should replace:**
-```yaml
-     spec:
-      containers:
-      - image: YOUR_CUSTOM_IMAGE_IIS_LOGMONITOR
+kubectl apply -f https://https://raw.githubusercontent.com/bgsilvait/k8s-fluentd-windows/master/k8s/deployment-iisbgs.yaml
 ```
 
 ```console
