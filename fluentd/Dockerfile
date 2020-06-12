@@ -9,7 +9,7 @@ RUN Set-ExecutionPolicy Bypass -Scope Process -Force; \
 
 #Install ruby and msys2 with chocolatey
 RUN choco install -y ruby --version 2.6.5.1 --params "'/InstallDir:C:\ruby26'"; \
-    choco install -y msys2 --params "'/NoPath /NoUpdate /InstallDir:C:\ruby26\msys64'"
+    choco install -y msys2 --version 20200522.0.0 --params "'/NoPath /NoUpdate /InstallDir:C:\ruby26\msys64'"
 
 #Install Ruby gems from fluentd Dockerfile + aws-sdk-cloudwatchlogs + Fluent plugins to parse and rewrite the logs
 RUN refreshenv; \
