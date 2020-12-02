@@ -50,6 +50,10 @@ spec:
       labels:
         name: fluentd-windows
     spec:
+      nodeSelector:
+        beta.kubernetes.io/os: windows
+      # Windows Build only supported on EKS 1.17+. If lower version remove the selector
+        node.kubernetes.io/windows-build: '10.0.17763'
       serviceAccount: fluentd-windows
       serviceAccountName: fluentd-windows
       # Because the fluentd requires to write on /etc/fluentd/ but we mount the config using a configmap 
@@ -70,7 +74,7 @@ spec:
         value: Win1809
       containers:
       - name: fluentd-windows
-        image: bgsilvait/winfluentd:1809
+        image: public.ecr.aws/t4b4b8z3/bgsilvait/winfluentd:latest
         env:
           - name: AWS_REGION
             valueFrom:
@@ -98,8 +102,6 @@ spec:
         - name: varlibdockercontainers
           mountPath: C:\ProgramData\Docker\containers
           readOnly: true
-      nodeSelector:
-        beta.kubernetes.io/os: windows
       terminationGracePeriodSeconds: 30
       volumes:
       - name: fluentdconftemp
