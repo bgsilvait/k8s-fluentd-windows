@@ -9,7 +9,7 @@ RUN Set-ExecutionPolicy Bypass -Scope Process -Force; \
 
 #Install ruby and msys2 with chocolatey
 RUN choco install -y ruby --version 2.6.5.1 --params "'/InstallDir:C:\ruby26'"; \
-    choco install -y msys2 --version 20200522.0.0 --params "'/NoPath /NoUpdate /InstallDir:C:\ruby26\msys64'"
+    choco install -y msys2 --params "'/NoPath /NoUpdate /InstallDir:C:\ruby26\msys64'"
 
 #Install Ruby gems from fluentd Dockerfile + aws-sdk-cloudwatchlogs + Fluent plugins to parse and rewrite the logs
 RUN refreshenv; \
@@ -22,7 +22,7 @@ bundle config build.oj --with-cflags="-Wno-attributes"; \
 gem install cool.io -v 1.5.4 --platform ruby; \
 gem install oj -v 3.3.10; \
 gem install json -v 2.2.0; \
-gem install fluentd -v 1.10.0; \
+gem install fluentd -v 1.11.5; \
 gem install win32-service -v 1.0.1; \
 gem install win32-ipc -v 0.7.0; \
 gem install win32-event -v 0.6.3; \
