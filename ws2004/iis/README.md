@@ -3,8 +3,8 @@
 
 ```
 region: us-east-1
-ami: ami-0e5df3f733acb31a7
-Name: Windows_Server-2019-English-Core-EKS_Optimized-1.18-2020.11.12
+ami: ami-098c915df1de7ba97
+Name: Windows_Server-2004-English-Core-EKS_Optimized-1.18-2020.11.12
 ```
 
 ## Windows Info:
@@ -36,8 +36,8 @@ $ systeminfo
 
 ```
 Host Name:                 -
-OS Name:                   Microsoft Windows Server 2019 Datacenter
-OS Version:                10.0.17763 N/A Build 17763
+OS Name:                   Microsoft Windows Server 2004 Datacenter
+OS Version:                10.0.17763 N/A 
 OS Manufacturer:           Microsoft Corporation
 OS Configuration:          Standalone Server
 OS Build Type:             Multiprocessor Free
