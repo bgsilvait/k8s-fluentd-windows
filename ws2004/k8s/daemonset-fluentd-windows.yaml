@@ -37,55 +37,81 @@ subjects:
 apiVersion: apps/v1
 kind: DaemonSet
 metadata:
-  name: fluentd-windows1909
+  name: fluentd-windows
   namespace: amazon-cloudwatch
   labels:
-    k8s-app: fluentd-windows1909
+    k8s-app: fluentd-windows
 spec:
   selector:
     matchLabels:
-      name: fluentd-windows1909
+      name: fluentd-windows
   template:
     metadata:
       labels:
-        name: fluentd-windows1909
+        name: fluentd-windows
     spec:
+      nodeSelector:
+        beta.kubernetes.io/os: windows
+      # Windows Build only supported on EKS 1.17+. If lower version remove the selector
+        node.kubernetes.io/windows-build: '10.0.19041'
       serviceAccount: fluentd-windows
       serviceAccountName: fluentd-windows
+      # Because the fluentd requires to write on /etc/fluentd/ but we mount the config using a configmap 
+      # which is read-only, this initContainers needs to be used to copy from RO folder to RW folder.
+      initContainers:
+      - name: copy-fluentd-config
+        image: mcr.microsoft.com/windows/servercore:2004
+        command: ['powershell', '-command', 'cp /etc/temp/*.conf /etc/fluent/']
+        volumeMounts:
+        - name: fluentdconftemp
+          mountPath: /etc/temp/
+        - name: fluentdconf
+          mountPath: /etc/fluent
       tolerations:
       - effect: NoSchedule
         key: os
         operator: Equal
-        value: Win1909
+        value: Win2004
       containers:
       - name: fluentd-windows
-        image: bgsilvait/fluentd-windows:1909
+        image: 'You_need_to_build'
         env:
-          - name: INTERVAL
-            value: "40"
           - name: AWS_REGION
-            value: us-east-1
+            valueFrom:
+              configMapKeyRef:
+                name: fluentd-windows
+                key: AWS_REGION
           - name: CLUSTER_NAME
-            value: eks-windows
+            valueFrom:
+              configMapKeyRef:
+                name: fluentd-windows
+                key: CLUSTER_NAME
         resources:
           limits:
-            memory: 1024Mi
+            memory: 2Gi
           requests:
             cpu: 100m
-            memory: 1024Mi
+            memory: 1Gi
         volumeMounts:
+        - name: fluentdconftemp
+          mountPath: /etc/temp/
+        - name: fluentdconf
+          mountPath: /etc/fluent
         - name: varlog
           mountPath: /var/log
         - name: varlibdockercontainers
           mountPath: C:\ProgramData\Docker\containers
           readOnly: true
-      nodeSelector:
-        beta.kubernetes.io/os: windows
       terminationGracePeriodSeconds: 30
       volumes:
+      - name: fluentdconftemp
+        configMap:
+          name: fluentd-windows
       - name: varlog
         hostPath:
           path: C:\var\log
       - name: varlibdockercontainers
         hostPath:
           path: C:\ProgramData\Docker\containers
+      - name: fluentdconf
+        emptyDir: {}
