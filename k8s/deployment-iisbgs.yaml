@@ -35,8 +35,12 @@ spec:
       labels:
         run: winiis
     spec:
+      nodeSelector:
+        beta.kubernetes.io/os: windows
+      # Windows Build only supported on EKS 1.17+. If lower version remove the selector
+        node.kubernetes.io/windows-build: '10.0.17763'
       containers:
-        - image: bgsilvait/winiis:1809
+        - image: public.ecr.aws/t4b4b8z3/bgsilvait/iis:latest
           imagePullPolicy: IfNotPresent
           name: winiis
           env:
@@ -60,9 +64,6 @@ spec:
               valueFrom:
                 fieldRef:
                   fieldPath: spec.serviceAccountName
-      dnsPolicy: ClusterFirst
-      nodeSelector:
-        beta.kubernetes.io/os: windows
       tolerations:
       - effect: NoSchedule
         key: os
