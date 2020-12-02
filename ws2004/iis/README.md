@@ -37,7 +37,7 @@ $ systeminfo
 ```
 Host Name:                 -
 OS Name:                   Microsoft Windows Server 2004 Datacenter
-OS Version:                10.0.17763 N/A 
+OS Version:                10.0.19041 N/A 
 OS Manufacturer:           Microsoft Corporation
 OS Configuration:          Standalone Server
 OS Build Type:             Multiprocessor Free
