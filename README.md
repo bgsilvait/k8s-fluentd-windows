@@ -16,7 +16,7 @@ Stream Logs from K8s Windows Pods using Fluentd
 
 1.1) Create EKS Cluster
 ```console
-eksctl create cluster --name=eks-windows --ssh-access \
+eksctl create cluster --name=eks-windows --ssh-access --version 1.18 \
 --ssh-public-key=#<your_key_name> --managed --region=us-east-1
 ```
 1.2) Install vpc-controller
@@ -51,8 +51,8 @@ eksctl utils associate-iam-oidc-provider  --cluster eks-windows --approve --regi
 ## 1) Create EKS [Service Account](https://docs.aws.amazon.com/eks/latest/userguide/iam-roles-for-service-accounts.html)
 
 ```console
-eksctl create iamserviceaccount --cluster eks-windows \
---attach-policy-arn arn:aws:iam::aws:policy/CloudWatchFullAccess \
+eksctl create iamserviceaccount --cluster BG8S-WINDOWS \
+--attach-policy-arn arn:aws:iam::aws:policy/CloudWatchAgentServerPolicy \
 --name fluentd-windows --namespace amazon-cloudwatch --approve \
 --region us-east-1
 ```
@@ -129,11 +129,11 @@ curl winiis -UseBasicParsing
 
 * [Fluentd](https://github.com/bgsilvait/k8s-fluentd-windows/tree/master/fluentd)
 
-## Custom Containers Windows Server 1919 for IIS, Fluentd and Kubernetes files
+## Custom Containers Windows Server 2004 for IIS, Fluentd and Kubernetes files
 
-* [IIS](https://github.com/bgsilvait/k8s-fluentd-windows/tree/master/ws1909/iis)
+* [IIS](https://github.com/bgsilvait/k8s-fluentd-windows/tree/master/ws2004/iis)
 
-* [Fluentd](https://github.com/bgsilvait/k8s-fluentd-windows/tree/master/ws1909/fluentd)
+* [Fluentd](https://github.com/bgsilvait/k8s-fluentd-windows/tree/master/ws2004/fluentd)
 
-* [K8S](https://github.com/bgsilvait/k8s-fluentd-windows/tree/master/ws1909/k8s)
+* [K8S](https://github.com/bgsilvait/k8s-fluentd-windows/tree/master/ws2004/k8s)
 
