@@ -10,45 +10,54 @@ data:
   CLUSTER_NAME: eks-windows
   fluent.conf: |
     <match fluent.**>
-      @type null
+      @type stdout
     </match>
 
     @include containers.conf
   containers.conf: |
-    <source>
-      @type tail
-      @id in_tail_container_logs
-      path /var/log/containers/*.log
-      exclude_path ["/var/log/containers/fluentd*"]
-      pos_file /var/log/fluentd-containers.log.pos
-      tag k8s.*
-      read_from_head true
-      <parse>
-        @type "json"
-        time_format %Y-%m-%dT%H:%M:%S.%NZ
-      </parse>
-    </source>
-    
-    <filter **>
-      @type record_transformer
-      @id filter_containers_stream_transformer
-      <record>
-        stream_name ${tag_parts[4]}
-      </record>
-    </filter>
-    
-      <match k8s.**>
-        @type cloudwatch_logs
-        @id out_cloudwatch_logs_containers
-        region "#{ENV.fetch('AWS_REGION')}"
-        log_group_name "/EKS/#{ENV.fetch('CLUSTER_NAME')}/Windows"
-        log_stream_name_key stream_name
-        remove_log_stream_name_key true
-        auto_create_stream true
-        <buffer>
-          flush_interval 5
-          chunk_limit_size 2m
-          queued_chunks_limit_size 32
-          retry_forever true
-        </buffer>
-      </match>
+        <source>
+          @type tail
+          @id in_tail_container_logs
+          @label @mainstream
+          path /var/log/containers/*.log
+          exclude_path ["/var/log/containers/fluentd*"]
+          pos_file /var/log/fluentd-containers.log.pos
+          tag k8s.*
+          read_from_head true
+          <parse>
+            @type "json"
+            time_format %Y-%m-%dT%H:%M:%S.%NZ
+          </parse>
+        </source>
+       
+
+        <label @mainstream>
+          <filter **>
+            @type kubernetes_metadata
+            @id filter_kube_metadata
+          </filter>
+
+          <filter **>
+            @type record_transformer
+            @id filter_containers_stream_transformer
+            <record>
+              stream_name ${tag_parts[4]}
+            </record>
+          </filter>
+
+          <match k8s.**>
+            @type cloudwatch_logs
+            @id out_cloudwatch_logs_containers
+            region "#{ENV.fetch('AWS_REGION')}"
+            log_group_name "/EKS/#{ENV.fetch('CLUSTER_NAME')}/Windows"
+            log_stream_name_key stream_name
+            remove_log_stream_name_key true
+            auto_create_stream true
+            <buffer>
+              flush_interval 5
+              chunk_limit_size 2m
+              queued_chunks_limit_size 32
+              retry_forever true
+            </buffer>
+          </match>
+        </label>
