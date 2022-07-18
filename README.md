@@ -88,6 +88,7 @@ kubectl get pods -n amazon-cloudwatch
 
 ## 3) Deploy an IIS pod created with [Logmonitor](https://github.com/microsoft/windows-container-tools/tree/master/LogMonitor)
 
+**LogMonitor is only required here because we are using IIS which run as a windows service and don't output in the stdout**
 
 ```console
 kubectl apply -f https://raw.githubusercontent.com/bgsilvait/k8s-fluentd-windows/master/k8s/deployment-iisbgs.yaml
